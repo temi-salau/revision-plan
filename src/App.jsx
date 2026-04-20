@@ -221,8 +221,6 @@ export default function RevisionPlan() {
   const totalDays = plan.length;
   const doneDays = plan.filter(d => checked[d.day]).length;
 
-  if (page === "notes") return <NotesPage notes={notes} onBack={() => setPage("plan")} />;
-
   const [examFeelings, setExamFeelings] = useState(() => {
     try { return JSON.parse(localStorage.getItem("revision-feelings") || "{}"); } catch { return {}; }
   });
@@ -236,6 +234,8 @@ export default function RevisionPlan() {
       return updated;
     });
   };
+
+  if (page === "notes") return <NotesPage notes={notes} onBack={() => setPage("plan")} />;
 
   return (
     <div style={{
@@ -275,7 +275,7 @@ export default function RevisionPlan() {
             background: "transparent", border: "1px solid #333", color: "#9ca3af",
             borderRadius: "4px", padding: "0.3rem 0.7rem", fontSize: "0.7rem",
             cursor: "pointer", fontFamily: "'DM Mono', monospace",
-          }}>🗒 Notes ({Object.values(notes).filter(v => v.trim()).length})</button>
+          }}>📝 Notes ({Object.values(notes).filter(v => v.trim()).length})</button>
         </div>
 
         <h1 style={{ fontFamily: "'Syne', sans-serif", fontSize: "clamp(1.8rem, 5vw, 2.8rem)", fontWeight: 800, margin: "0 0 0.25rem", lineHeight: 1.1 }}>
@@ -316,7 +316,7 @@ export default function RevisionPlan() {
                   onClick={() => cycleFeelings(e.code)}
                   style={{ fontSize: "0.65rem", color: difficultyColor[examFeelings[e.code] || e.difficulty], cursor: "pointer", userSelect: "none" }}
                 >
-                  {difficultyLabel[examFeelings[e.code] || e.difficulty]} (click)
+                  {difficultyLabel[examFeelings[e.code] || e.difficulty]}
                 </div>
               </div>
             );
@@ -403,7 +403,7 @@ export default function RevisionPlan() {
                 )}
                 {hasNote && (
                   <div style={{ fontSize: "0.68rem", color: isDone ? "#333" : c.text, marginTop: "0.35rem", fontStyle: "italic", opacity: 0.8 }}>
-                    🗒 {notes[d.day].length > 60 ? notes[d.day].slice(0, 60) + "…" : notes[d.day]}
+                    📝 {notes[d.day].length > 60 ? notes[d.day].slice(0, 60) + "…" : notes[d.day]}
                   </div>
                 )}
               </div>
@@ -422,7 +422,7 @@ export default function RevisionPlan() {
                   marginTop: "2px",
                 }}
               >
-                🗒
+                📝
               </button>
             </div>
           );
